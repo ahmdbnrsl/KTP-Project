@@ -14,11 +14,11 @@ export default function TitleAnimation({
         <motion.div
             ref={animationRef}
             initial={{
-                scale: 0,
+                y: -50,
                 opacity: 0,
             }}
             animate={{
-                scale: isInView ? 1 : 0,
+                y: isInView ? 0 : -50,
                 opacity: isInView ? 100 : 0,
             }}
             transition={{
