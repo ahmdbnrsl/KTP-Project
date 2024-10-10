@@ -18,22 +18,15 @@ export default function LoginPage() {
     return (
         <main className="p-6 w-full min-h-screen bg-zinc-100 flex flex-col justify-center items-center">
             <div className="w-full max-w-md py-6 px-5 rounded-xl bg-zinc-100 border-2 border-zinc-300 shadow-2xl shadow-zinc-500">
-                <h1 className="text-xl md:text-2xl font-semibold text-green-600 flex gap-2 items-center">
+                <h1 className="text-xl md:text-2xl font-semibold flex gap-2 items-center w-full justify-center">
                     <FaUserLock className="-mt-1" /> Masuk
                 </h1>
-                <p className="text-xs text-zinc-500 font-normal mt-2.5">
-                    Masukan NIM/NIS dan password Anda,{' '}
-                    <Link
-                        href="https://wa.me/"
-                        className="text-green-600 cursor-pointer"
-                    >
-                        Hubungi Admin
-                    </Link>{' '}
-                    untuk mendapatkan password.
+                <p className="text-sm mt-2.5 w-full text-center">
+                    Masukan NIM/NIS dan password Anda
                 </p>
-                <hr className="mt-3"></hr>
+                <hr className="mt-5"></hr>
                 <form className="mt-3">
-                    <p className="px-3 text-sm text-zinc-500 font-semibold">
+                    <p className="px-3 text-sm font-semibold text-zinc-800">
                         NIM/NIS
                     </p>
                     <div className="flex flex-col mt-3 relative">
@@ -46,12 +39,12 @@ export default function LoginPage() {
                         ></Input>
                         <label
                             htmlFor="nim"
-                            className="text-xs text-zinc-400 bg-zinc-100 ml-3 px-2 absolute -translate-y-3 peer-placeholder-shown:translate-y-3 font-normal peer-focus:-translate-y-3 w-auto py-1 peer-focus:text-green-600 -mt-1"
+                            className="text-xs text-zinc-600 bg-zinc-100 ml-3 px-2 absolute -translate-y-3 peer-placeholder-shown:translate-y-3 font-normal peer-focus:-translate-y-3 w-auto py-1 peer-focus:text-zinc-800 -mt-1"
                         >
                             Masukan NIM/NIS Anda disini.
                         </label>
                     </div>
-                    <p className="px-3 text-sm text-zinc-500 font-semibold mt-3">
+                    <p className="px-3 text-sm text-zinc-800 font-semibold mt-3">
                         Password
                     </p>
                     <div className="flex flex-col mt-3 relative">
@@ -59,30 +52,30 @@ export default function LoginPage() {
                             type="password"
                             name="password"
                             id="password"
-                            className="peer placeholder:text-transparent px-4 py-3 text-zinc-600"
+                            className="peer placeholder:text-transparent px-4 py-3 text-zinc-800"
                             placeholder="password"
                         ></Input>
                         <label
                             htmlFor="password"
-                            className="text-xs text-zinc-400 bg-zinc-100 ml-3 px-2 absolute -translate-y-3 peer-placeholder-shown:translate-y-3 font-normal peer-focus:-translate-y-3 w-auto py-1 peer-focus:text-green-600 -mt-1"
+                            className="text-xs text-zinc-600 bg-zinc-100 ml-3 px-2 absolute -translate-y-3 peer-placeholder-shown:translate-y-3 font-normal peer-focus:-translate-y-3 w-auto py-1 peer-focus:text-zinc-800 -mt-1"
                         >
-                            Masukan NIM/NIS Anda disini.
+                            Masukan Password Anda disini.
                         </label>
                     </div>
-                    <p className="px-3 text-sm text-zinc-500 font-semibold mt-3">
-                        Peran
+                    <p className="px-3 text-sm text-zinc-800 font-semibold mt-3">
+                        Status
                     </p>
                     <div className="flex flex-col mt-3 relative">
                         <Select>
                             <SelectTrigger className="w-full text-xs">
                                 <SelectValue
                                     className="text-xs text-zinc-400"
-                                    placeholder="Pilih peran Anda"
+                                    placeholder="Pilih status Anda"
                                 />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <SelectLabel>Peran</SelectLabel>
+                                    <SelectLabel>Status</SelectLabel>
                                     <SelectItem value="Mahasiswa KTP">
                                         Mahasiswa KTP
                                     </SelectItem>
@@ -96,9 +89,15 @@ export default function LoginPage() {
                             </SelectContent>
                         </Select>
                     </div>
-                    <Button type="submit" className="mt-4 w-full">
+                    <Button type="submit" className="mt-6 w-full">
                         Masuk
                     </Button>
+                    <p className="text-sm text-zinc-800 mt-5 w-full text-center">
+                        Belum punya akun?{' '}
+                        <Link href="/" className="font-medium text-sky-600">
+                            Hubungi admin
+                        </Link>
+                    </p>
                 </form>
             </div>
         </main>
