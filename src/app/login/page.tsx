@@ -17,14 +17,11 @@ import Link from 'next/link';
 export default function LoginPage() {
     return (
         <main className="p-6 w-full min-h-screen bg-zinc-100 flex flex-col justify-center items-center">
-            <div className="w-full max-w-md py-6 px-5 rounded-xl bg-zinc-100 border-2 border-zinc-300 shadow-2xl shadow-zinc-500 py-4">
+            <div className="w-full max-w-md py-6 px-5 rounded-xl bg-zinc-100 border-2 border-zinc-300 shadow-2xl shadow-zinc-500 py-6">
                 <h1 className="text-xl md:text-2xl font-semibold flex gap-2 items-center w-full justify-center">
                     <FaUserLock className="-mt-1" /> Masuk
                 </h1>
-                <p className="text-sm mt-2.5 w-full text-center px-4">
-                    Masukan Nomor Induk Mahasiswa / Nomor Induk Sekolah dan password Anda
-                </p>
-                <hr className="mt-5"></hr>
+                <hr className="mt-6"></hr>
                 <form className="mt-3">
                     <p className="px-3 text-sm font-semibold text-zinc-800">
                         NIM/NIS
