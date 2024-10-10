@@ -22,7 +22,7 @@ export default function LoginPage() {
                     <FaUserLock className="-mt-1" /> Masuk
                 </h1>
                 <p className="text-sm mt-2.5 w-full text-center">
-                    Masukan NIM/NIS dan password Anda
+                    Masukan Nomor Induk Mahasiswa / Nomor Induk Sekolah dan password Anda
                 </p>
                 <hr className="mt-5"></hr>
                 <form className="mt-3">
