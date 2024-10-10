@@ -16,7 +16,7 @@ import Link from 'next/link';
 
 export default function LoginPage() {
     return (
-        <main className='p-6 w-full min-h-screen bg-zinc-100 flex flex-col justify-center items-center relative'>
+        <main className='p-6 w-full min-h-screen bg-zinc-100 flex flex-col justify-center items-center relative z-[-2]'>
             <div className='w-full h-1/2 bg-green-600/[0.5] absolute z-[-1] inset-x-0 bottom-0'></div>
             <div className='w-full max-w-md py-6 px-5 rounded-xl bg-zinc-100 border-2 border-zinc-300 shadow-2xl shadow-zinc-500 py-6'>
                 <h1 className='text-xl md:text-2xl font-semibold flex gap-2 items-center w-full justify-center'>
