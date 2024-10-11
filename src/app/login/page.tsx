@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { FaUserLock } from 'react-icons/fa';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -16,12 +17,18 @@ import Link from 'next/link';
 
 export default function LoginPage() {
     return (
-        <main className='p-6 w-full min-h-screen bg-zinc-100 flex flex-col justify-center items-center relative z-[-2]'>
-            <div className='w-full h-1/2 bg-green-600/[0.5] absolute z-[-1] inset-x-0 bottom-0'></div>
+        <main className='p-6 w-full min-h-screen bg-zinc-100 flex flex-col justify-center items-center'>
             <div className='w-full max-w-md py-6 px-5 rounded-xl bg-zinc-100 border-2 border-zinc-300 shadow-2xl shadow-zinc-500 py-6'>
-                <h1 className='text-xl md:text-2xl font-semibold flex gap-2 items-center w-full justify-center'>
-                    <FaUserLock className='-mt-1' /> Masuk
-                </h1>
+                <div className='flex justify-center w-full'>
+                    <Image
+                        src='/logo/main.png'
+                        alt='logo'
+                        width={960}
+                        height={540}
+                        className='w-2/3 object-cover'
+                        loading='lazy'
+                    />
+                </div>
                 <hr className='mt-6'></hr>
                 <form className='mt-3'>
                     <p className='px-3 text-sm font-semibold text-zinc-800'>
@@ -89,15 +96,15 @@ export default function LoginPage() {
                     </div>
                     <Button
                         type='submit'
-                        className='mt-6 w-full'
+                        className='mt-6 w-full flex justify-center items-center gap-2'
                     >
-                        Masuk
+                        <FaUserLock className='-mt-1' /> Masuk
                     </Button>
                     <p className='text-sm text-zinc-800 mt-5 w-full text-center'>
                         Belum punya akun?{' '}
                         <Link
                             href='/'
-                            className='font-medium text-sky-600'
+                            className='font-medium'
                         >
                             Hubungi admin
                         </Link>
