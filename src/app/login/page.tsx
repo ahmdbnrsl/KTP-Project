@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { z } from 'zod';
 import { FaUserLock } from 'react-icons/fa';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -18,19 +19,83 @@ import * as React from 'react';
 
 export default function LoginPage() {
     const [passMessage, setPassMessage] = React.useState<string>('');
-    const [borderPassRed, setBorderPassRed] = React.useState<boolean>(false);
+    const [nimMessage, setNimMessage] = React.useState<string>('');
+    const [roleMessage, setRoleMessage] = React.useState<string>('');
+    const passSchema = z
+        .string()
+        .min(8, 'Password tidak boleh kurang dari 8 karakter')
+        .regex(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/,
+            'Password tidak valid (password harus memiliki setidaknya 8 karakter berisi huruf kecil, huruf besar, angka, dan simbol)'
+        );
+    const nisOrNimSchema = z.string().min(1, 'NIM/NIS tidak boleh kosong');
+    const roleSchema = z.string().min(1, 'Status tidak boleh kosong');
+    const loginSchema = z.object({
+        nimOrNis: nisOrNimSchema,
+        password: passSchema,
+        role: roleSchema,
+    });
+    const HandleNimChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let nimnis: string = e.target.value;
+        try {
+            nisOrNimSchema.parse(nimnis);
+            setNimMessage('');
+        } catch (err) {
+            if (err instanceof z.ZodError) {
+                setNimMessage(JSON.parse(err.message)[0].message);
+            }
+        }
+    };
     const HandlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let pass: string = e.target.value;
-        let validate = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])$/;
-        if (validate.test(pass)) {
+        try {
+            passSchema.parse(pass);
             setPassMessage('');
-            setBorderPassRed(false);
+        } catch (err) {
+            if (err instanceof z.ZodError) {
+                setPassMessage(JSON.parse(err.message)[0].message);
+            }
         }
-        if (!validate.test(pass)) {
-            setPassMessage(
-                'Password tidak valid (password harus memiliki setidaknya 8 karakter berisi huruf kecil, huruf besar, angka, dan simbol'
-            );
-            setBorderPassRed(true);
+    };
+    const HandleRoleChange = (e: string) => {
+        try {
+            roleSchema.parse(e);
+            setRoleMessage('');
+        } catch (err) {
+            if (err instanceof z.ZodError) {
+                setRoleMessage(JSON.parse(err.message)[0].message);
+            }
+        }
+    };
+    const HandleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        interface Login extends EventTarget {
+            nim: HTMLInputElement;
+            password: HTMLInputElement;
+            role: HTMLInputElement;
+        }
+        const el = e.target as Login;
+
+        try {
+            let validate = loginSchema.parse({
+                nimOrNis: el.nim.value,
+                password: el.password.value,
+                role: el.role.value,
+            });
+            alert(JSON.stringify(validate));
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                const isErr = JSON.parse(error.message)[0];
+                if (isErr.path[0] === 'nimOrNis') {
+                    el.nim.focus();
+                    setNimMessage(isErr.message);
+                } else if (isErr.path[0] === 'password') {
+                    el.password.focus();
+                    setPassMessage(isErr.message);
+                } else {
+                    setRoleMessage(isErr.message);
+                }
+            }
         }
     };
     return (
@@ -47,12 +112,16 @@ export default function LoginPage() {
                     />
                 </div>
                 <hr className="lg:hidden"></hr>
-                <form className="mt-3 mb-5 lg:w-1/3 flex flex-col p-5">
+                <form
+                    onSubmit={HandleLogin}
+                    className="mt-3 mb-5 lg:w-1/3 flex flex-col p-5"
+                >
                     <p className="px-3 text-sm font-semibold text-zinc-800">
                         NIM/NIS
                     </p>
                     <div className="flex flex-col mt-3 relative">
                         <Input
+                            onChange={HandleNimChange}
                             type="number"
                             name="nim"
                             id="nim"
@@ -66,6 +135,11 @@ export default function LoginPage() {
                             Masukan NIM/NIS
                         </label>
                     </div>
+                    {nimMessage && (
+                        <p className="text-red-500 font-medium text-xs mt-3 px-3">
+                            {nimMessage}
+                        </p>
+                    )}
                     <p className="px-3 text-sm text-zinc-800 font-semibold mt-3">
                         Password
                     </p>
@@ -75,17 +149,12 @@ export default function LoginPage() {
                             type="password"
                             name="password"
                             id="password"
-                            className={`peer placeholder:text-transparent px-4 py-3 text-zinc-800 ${
-                                borderPassRed && 'border-red-500 ring-red-500'
-                            }`}
+                            className={`peer placeholder:text-transparent px-4 py-3 text-zinc-800 `}
                             placeholder="password"
                         ></Input>
                         <label
                             htmlFor="password"
-                            className={`text-xs text-zinc-600 bg-zinc-100 ml-3 px-2 absolute -translate-y-3 peer-placeholder-shown:translate-y-3 font-normal peer-focus:-translate-y-3 w-auto py-1 peer-focus:text-zinc-800 -mt-1 ${
-                                borderPassRed &&
-                                'text-red-500 peer-focus:text-red-500'
-                            } `}
+                            className={`text-xs text-zinc-600 bg-zinc-100 ml-3 px-2 absolute -translate-y-3 peer-placeholder-shown:translate-y-3 font-normal peer-focus:-translate-y-3 w-auto py-1 peer-focus:text-zinc-800 -mt-1`}
                         >
                             Masukan password
                         </label>
@@ -99,7 +168,7 @@ export default function LoginPage() {
                         Status
                     </p>
                     <div className="flex flex-col mt-3 relative">
-                        <Select>
+                        <Select name="role" onValueChange={HandleRoleChange}>
                             <SelectTrigger className="w-full text-xs">
                                 <SelectValue
                                     className="text-xs"
@@ -122,6 +191,11 @@ export default function LoginPage() {
                             </SelectContent>
                         </Select>
                     </div>
+                    {roleMessage && (
+                        <p className="text-red-500 font-medium text-xs mt-3 px-3">
+                            {roleMessage}
+                        </p>
+                    )}
                     <Button
                         type="submit"
                         className="mt-6 w-full flex justify-center items-center gap-2"
