@@ -23,7 +23,7 @@ import Link from 'next/link';
 
 export default function LoginPage() {
     return (
-        <main className='w-full min-h-screen bg-zinc-100 flex flex-col justify-center items-center p-6 bg-zinc-100 bg-wp bg-no-repeat bg-cover bg-right'>
+        <main className='w-full min-h-screen flex flex-col justify-center items-center p-6 bg-zinc-100 bg-wp bg-no-repeat bg-cover bg-center'>
             <div className='w-full max-w-md py-6 px-5 rounded-xl bg-zinc-100 border-2 border-zinc-300 shadow-2xl shadow-zinc-500 lg:flex lg:flex-row-reverse lg:max-w-5xl lg:p-0'>
                 <div className='flex justify-center w-full lg:w-2/3 lg:border-l-2 lg:border-zinc-300'>
                     <Image
