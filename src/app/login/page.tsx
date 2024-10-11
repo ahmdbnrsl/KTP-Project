@@ -21,7 +21,7 @@ export default function LoginPage() {
             <div className='w-full max-w-md py-6 px-5 rounded-xl bg-zinc-100 border-2 border-zinc-300 shadow-2xl shadow-zinc-500 py-6'>
                 <div className='flex justify-center w-full'>
                     <Image
-                        src='/logo/main.png'
+                        src='/logo/auth.png'
                         alt='logo'
                         width={960}
                         height={540}
@@ -39,7 +39,7 @@ export default function LoginPage() {
                             type='number'
                             name='nim'
                             id='nim'
-                            className='peer placeholder:text-transparent px-4 py-3 text-zinc-600'
+                            className='peer placeholder:text-transparent px-4 py-3 text-zinc-800'
                             placeholder='nim'
                         ></Input>
                         <label
@@ -74,7 +74,7 @@ export default function LoginPage() {
                         <Select>
                             <SelectTrigger className='w-full text-xs'>
                                 <SelectValue
-                                    className='text-xs text-zinc-400'
+                                    className='text-xs'
                                     placeholder='Pilih status Anda'
                                 />
                             </SelectTrigger>
@@ -104,7 +104,7 @@ export default function LoginPage() {
                         Belum punya akun?{' '}
                         <Link
                             href='/'
-                            className='font-medium'
+                            className='font-semibold cursor-pointer'
                         >
                             Hubungi admin
                         </Link>
