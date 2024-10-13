@@ -4,6 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 
 export default function HomePage() {
     return (
@@ -47,24 +55,67 @@ export default function HomePage() {
                             'radial-gradient(600px circle at 50% 50%, rgba(0, 149, 178, 0.1), transparent 80%), radial-gradient(200px circle at 20% 70%, rgba(0, 149, 178, 0.1), transparent 80%), radial-gradient(600px circle at 70% 20%, rgba(0, 149, 178, 0.1), transparent 80%)',
                     }}
                 >
-                    <h1 className="text-center tracking-tight text-3xl md:text-6xl lg:text-8xl font-bold bg-gradient-to-br from-[#0095b2] to-zinc-800 text-transparent inline-block bg-clip-text">
+                    <motion.h1
+                        initial={{
+                            y: -30,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            y: 0,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            duration: 0.3,
+                        }}
+                        className="text-center tracking-tight text-3xl md:text-6xl lg:text-8xl font-bold bg-gradient-to-br from-[#0095b2] to-zinc-800 text-transparent inline-block bg-clip-text"
+                    >
                         Sistem Manajemen Pertanian dan Pesantren
-                    </h1>
-                    <p className="max-w-[60ch] text-center mt-4 text-base md:text-lg lg:text-xl text-zinc-800 font-medium">
+                    </motion.h1>
+                    <motion.p
+                        initial={{
+                            y: -30,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            y: 0,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            duration: 0.3,
+                            delay: 0.3,
+                        }}
+                        className="max-w-[60ch] text-center mt-4 text-base md:text-lg lg:text-xl text-zinc-800 font-medium"
+                    >
                         Lorem, ipsum dolor sit amet consectetur adipisicing
                         elit. Laudantium aspernatur perspiciatis odio quia
                         temporibus provident cum vero quasi sed quaerat at
                         necessitatibus, assumenda rem nobis tempora doloribus
                         voluptas fugit! Voluptate.
-                    </p>
-                    <Link href="/login">
-                        <Button
-                            type="button"
-                            className="font-semibold mt-4 rounded-full text-xl md:text-2xl lg:text-3xl bg-transparent text-zinc-800 border-4 border-[#0095b2] py-2 md:py-4 lg:py-6 px-6 md:px-8 lg:px-10 hover:bg-[#0095b2] hover:text-zinc-100 transition-colors"
-                        >
-                            Login
-                        </Button>
-                    </Link>
+                    </motion.p>
+                    <motion.div
+                        initial={{
+                            y: -30,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            y: 0,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            duration: 0.3,
+                            delay: 0.6,
+                        }}
+                        className="mt-4"
+                    >
+                        <Link href="/login">
+                            <Button
+                                type="button"
+                                className="font-semibold rounded-full text-xl md:text-2xl lg:text-3xl bg-transparent text-zinc-800 border-4 border-[#0095b2] py-2 md:py-4 lg:py-6 px-6 md:px-8 lg:px-10 hover:bg-[#0095b2] hover:text-zinc-100 transition-colors"
+                            >
+                                Login
+                            </Button>
+                        </Link>
+                    </motion.div>
                 </div>
             </section>
         </main>
