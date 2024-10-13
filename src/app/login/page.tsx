@@ -336,7 +336,7 @@ export default function LoginPage() {
                     >
                         <Button
                             type="submit"
-                            className="w-full flex justify-center items-center gap-2"
+                            className="w-full flex justify-center items-center gap-2 bg-[#0095b2]"
                         >
                             <FaUserLock /> Masuk
                         </Button>
