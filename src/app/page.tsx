@@ -47,9 +47,9 @@ export default function HomePage() {
                     />
                 </nav>
             </motion.div>
-            <section className="w-full min-h-screen">
+            <section className="w-full min-h-screen bg-zinc-100 bg-ornament">
                 <div
-                    className="w-full min-h-screen bg-zinc-100 flex justify-center items-center px-6 py-8 flex-col"
+                    className="w-full min-h-screen flex justify-center items-center px-6 py-8 flex-col"
                     style={{
                         backgroundImage:
                             'radial-gradient(600px circle at 50% 50%, rgba(0, 149, 178, 0.1), transparent 80%), radial-gradient(200px circle at 20% 70%, rgba(0, 149, 178, 0.1), transparent 80%), radial-gradient(600px circle at 70% 20%, rgba(0, 149, 178, 0.1), transparent 80%)',

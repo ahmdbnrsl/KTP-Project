@@ -10,7 +10,8 @@ const config: Config = {
     theme: {
         extend: {
             backgroundImage: {
-                wp: 'url(/background/white_pattern.jpg)'
+                wp: 'url(/background/white_pattern.jpg)',
+                ornament: 'url(/background/hero-ournament.png)'
             },
             colors: {
                 background: 'hsl(var(--background))',
