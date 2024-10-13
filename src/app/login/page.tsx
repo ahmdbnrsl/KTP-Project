@@ -14,6 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import * as React from 'react';
 
@@ -100,8 +101,40 @@ export default function LoginPage() {
     };
     return (
         <main className="w-full min-h-screen flex flex-col justify-center items-center p-6 bg-zinc-100 bg-wp bg-no-repeat bg-cover bg-center">
-            <div className="w-full max-w-md py-6 px-5 rounded-xl bg-zinc-100 border-2 border-zinc-300 shadow-2xl shadow-zinc-500 lg:flex lg:flex-row-reverse lg:max-w-5xl lg:p-0">
-                <div className="flex justify-center w-full lg:w-2/3 lg:border-l-2 lg:border-zinc-300">
+            <motion.div
+                drag
+                dragConstraints={{
+                    top: -50,
+                    left: -50,
+                    right: 50,
+                    bottom: 50,
+                }}
+                initial={{
+                    opacity: 0,
+                    scale: 0.8,
+                }}
+                animate={{
+                    opacity: 1,
+                    scale: 1,
+                }}
+                transition={{
+                    duration: 1,
+                }}
+                className="w-full max-w-md py-6 px-5 rounded-xl bg-zinc-100 border-2 border-zinc-300 shadow-2xl shadow-zinc-500 lg:flex lg:flex-row-reverse lg:max-w-5xl lg:p-0"
+            >
+                <motion.div
+                    initial={{
+                        opacity: 0,
+                    }}
+                    animate={{
+                        opacity: 1,
+                    }}
+                    transition={{
+                        delay: 1,
+                        duration: 0.3,
+                    }}
+                    className="flex justify-center w-full lg:w-2/3 lg:border-l-2 lg:border-zinc-300"
+                >
                     <Image
                         src="/logo/auth.png"
                         alt="logo"
@@ -110,16 +143,44 @@ export default function LoginPage() {
                         className="w-2/3 object-cover"
                         loading="lazy"
                     />
-                </div>
+                </motion.div>
                 <hr className="lg:hidden"></hr>
                 <form
                     onSubmit={HandleLogin}
                     className="mt-3 mb-5 lg:w-1/3 flex flex-col p-5"
                 >
-                    <p className="px-3 text-sm font-semibold text-zinc-800">
+                    <motion.p
+                        initial={{
+                            scale: 0,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            scale: 1,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            delay: 1,
+                            duration: 0.3,
+                        }}
+                        className="px-3 text-sm font-semibold text-zinc-800"
+                    >
                         NIM/NIS
-                    </p>
-                    <div className="flex flex-col mt-3 relative">
+                    </motion.p>
+                    <motion.div
+                        initial={{
+                            y: -30,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            y: 0,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            delay: 1,
+                            duration: 0.3,
+                        }}
+                        className="flex flex-col mt-3 relative"
+                    >
                         <Input
                             onChange={HandleNimChange}
                             type="number"
@@ -134,16 +195,44 @@ export default function LoginPage() {
                         >
                             Masukan NIM/NIS
                         </label>
-                    </div>
+                    </motion.div>
                     {nimMessage && (
                         <p className="text-red-500 font-medium text-xs mt-3 px-3">
                             {nimMessage}
                         </p>
                     )}
-                    <p className="px-3 text-sm text-zinc-800 font-semibold mt-3">
+                    <motion.p
+                        initial={{
+                            scale: 0,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            scale: 1,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            delay: 1.3,
+                            duration: 0.3,
+                        }}
+                        className="px-3 text-sm text-zinc-800 font-semibold mt-3"
+                    >
                         Password
-                    </p>
-                    <div className="flex flex-col mt-3 relative">
+                    </motion.p>
+                    <motion.div
+                        initial={{
+                            y: -30,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            y: 0,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            delay: 1.3,
+                            duration: 0.3,
+                        }}
+                        className="flex flex-col mt-3 relative"
+                    >
                         <Input
                             onChange={HandlePasswordChange}
                             type="password"
@@ -158,16 +247,44 @@ export default function LoginPage() {
                         >
                             Masukan password
                         </label>
-                    </div>
+                    </motion.div>
                     {passMessage && (
                         <p className="text-red-500 font-medium text-xs mt-3 px-3">
                             {passMessage}
                         </p>
                     )}
-                    <p className="px-3 text-sm text-zinc-800 font-semibold mt-3">
+                    <motion.p
+                        initial={{
+                            scale: 0,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            scale: 1,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            delay: 1.6,
+                            duration: 0.3,
+                        }}
+                        className="px-3 text-sm text-zinc-800 font-semibold mt-3"
+                    >
                         Status
-                    </p>
-                    <div className="flex flex-col mt-3 relative">
+                    </motion.p>
+                    <motion.div
+                        initial={{
+                            y: -30,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            y: 0,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            delay: 1.6,
+                            duration: 0.3,
+                        }}
+                        className="flex flex-col mt-3 relative"
+                    >
                         <Select name="role" onValueChange={HandleRoleChange}>
                             <SelectTrigger className="w-full text-xs">
                                 <SelectValue
@@ -190,26 +307,62 @@ export default function LoginPage() {
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
-                    </div>
+                    </motion.div>
                     {roleMessage && (
                         <p className="text-red-500 font-medium text-xs mt-3 px-3">
                             {roleMessage}
                         </p>
                     )}
-                    <Button
-                        type="submit"
-                        className="mt-6 w-full flex justify-center items-center gap-2"
+                    <motion.div
+                        initial={{
+                            scale: 0,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            scale: 1,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            delay: 1.9,
+                            duration: 0.3,
+                        }}
+                        whileHover={{
+                            scale: 0.8,
+                        }}
+                        whileTap={{
+                            scale: 0.8,
+                        }}
+                        className="mt-6 w-full"
                     >
-                        <FaUserLock className="-mt-1" /> Masuk
-                    </Button>
-                    <p className="text-sm text-zinc-800 mt-5 w-full text-center">
+                        <Button
+                            type="submit"
+                            className="w-full flex justify-center items-center gap-2"
+                        >
+                            <FaUserLock /> Masuk
+                        </Button>
+                    </motion.div>
+                    <motion.p
+                        initial={{
+                            scale: 0,
+                            opacity: 0,
+                        }}
+                        animate={{
+                            scale: 1,
+                            opacity: 1,
+                        }}
+                        transition={{
+                            delay: 2.2,
+                            duration: 0.3,
+                        }}
+                        className="text-sm text-zinc-800 mt-5 w-full text-center"
+                    >
                         Belum punya akun?{' '}
                         <Link href="/" className="font-semibold cursor-pointer">
                             Hubungi admin
                         </Link>
-                    </p>
+                    </motion.p>
                 </form>
-            </div>
+            </motion.div>
         </main>
     );
 }
