@@ -14,6 +14,23 @@ import {
 import Autoplay from 'embla-carousel-autoplay';
 
 export default function HomePage() {
+    const data = [
+        {
+            title: 'Ngaji',
+        },
+        {
+            title: 'Berkebun',
+        },
+        {
+            title: 'Sosialisasi',
+        },
+        {
+            title: 'Berjamaah',
+        },
+        {
+            title: 'Hadroh',
+        },
+    ];
     return (
         <main className="w-full min-h-screen bg-zinc-100 bg-ornament flex flex-col items-center justify-center">
             <motion.div
@@ -119,8 +136,19 @@ export default function HomePage() {
                 </div>
             </section>
             <section className="w-full lg:px-12 py-5 flex justify-center">
-                <div className="max-w-[1024px] w-full pt-1 lg:rounded-2xl bg-gradient-to-r from-[#0095b2] to-[#0095b2]/[0.4] lg:bg-gradient-to-br lg:p-1 overflow-hidden min-h-screen">
-                    <div className="w-full p-5 lg:rounded-[0.75rem] bg-zinc-100 bg-ornament bg-[length:400px] min-h-screen"></div>
+                <div className="max-w-[1024px] w-full pt-1 lg:rounded-2xl lg:p-1 overflow-hidden min-h-screen">
+                    <div className="w-full p-5 lg:rounded-[0.75rem] min-h-screen grid grid-cols-auto-fit gap-5">
+                        {data.map((items, i) => (
+                            <div
+                                key={i}
+                                className="w-full h-[20rem] rounded-lg bg-zinc-100 bg-gradient-to-b fr border-1 border-zinc-800/[0.3] to-transparent from-[#0095b2]/[0.1]"
+                            >
+                                <h1 className="font-semibold bg-gradient-to-br from-[#0095b2] to-zinc-800 text-transparent inline-block bg-clip-text tracking-tight text-lg md:text-xl lg:text-2xl">
+                                    {items.title}
+                                </h1>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
         </main>

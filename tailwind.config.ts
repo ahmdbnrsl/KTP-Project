@@ -9,9 +9,13 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            gridTemplateColumns: {
+                'auto-fit': "repeat(auto-fit, minmax(15rem, 1fr))"
+            },
             backgroundImage: {
                 wp: 'url(/background/white_pattern.jpg)',
-                ornament: 'url(/background/hero-ournament.png)'
+                ornament: 'url(/background/hero-ournament.png)',
+                'ornament-2': 'url(/background/ornament-2.png)'
             },
             colors: {
                 background: 'hsl(var(--background))',
