@@ -4,6 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import { FaHistory } from 'react-icons/fa';
+import { LuLampCeiling } from 'react-icons/lu';
+import { IoExtensionPuzzleOutline } from 'react-icons/io5';
+
 import {
     Carousel,
     CarouselContent,
@@ -16,19 +20,14 @@ import Autoplay from 'embla-carousel-autoplay';
 export default function HomePage() {
     const data = [
         {
-            title: 'Ngaji',
+            icon: <LuLampCeiling className="text-[#0095b2] text-6xl mt-12" />,
+            title: 'Visi',
         },
         {
-            title: 'Berkebun',
-        },
-        {
-            title: 'Sosialisasi',
-        },
-        {
-            title: 'Berjamaah',
-        },
-        {
-            title: 'Hadroh',
+            icon: (
+                <IoExtensionPuzzleOutline className="text-[#0095b2] text-6xl mt-12" />
+            ),
+            title: 'Misi',
         },
     ];
     return (
@@ -45,7 +44,7 @@ export default function HomePage() {
                 transition={{
                     duration: 1.5,
                 }}
-                className="fixed top-0 w-full"
+                className="fixed top-0 w-full z-[999999]"
             >
                 <nav
                     className="w-full px-4 sm:px-6 flex justify-between items-center"
@@ -135,18 +134,69 @@ export default function HomePage() {
                     </motion.div>
                 </div>
             </section>
-            <section className="w-full lg:px-12 py-5 flex justify-center">
-                <div className="max-w-[1024px] w-full pt-1 lg:rounded-2xl lg:p-1 overflow-hidden min-h-screen">
-                    <div className="w-full p-5 lg:rounded-[0.75rem] min-h-screen grid grid-cols-auto-fit gap-5">
+            <section className="w-full py-5 p-6 flex justify-center">
+                <div className="max-w-[1024px] w-full pt-1 lg:rounded-2xl flex flex-col">
+                    <motion.div
+                        initial={{
+                            y: 40,
+                            opacity: 0,
+                        }}
+                        whileInView={{
+                            y: 0,
+                            opacity: 1,
+                        }}
+                        viewport={{
+                            once: true,
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="p-4 w-full rounded-lg bg-zinc-100 bg-gradient-to-b fr border-1 border-zinc-800/[0.3] to-transparent from-[#0095b2]/[0.1] hover:-translate-y-3 transition-transform"
+                    >
+                        <FaHistory className="text-[#0095b2] text-6xl mt-12" />
+                        <h1 className="mt-4 font-semibold bg-gradient-to-br from-[#0095b2] to-zinc-800 text-transparent inline-block bg-clip-text tracking-tight text-xl md:text-2xl lg:text-3xl">
+                            Sejarah
+                        </h1>
+                        <p className="mt-3 text-xs md:text-sm lg:text-base text-zinc-800 font-medium">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit. Magni itaque ullam corrupti facere sunt illo
+                            ut error odio possimus, autem quia consectetur
+                            mollitia placeat eum ab. Odit est animi ullam. Lorem
+                            ipsum dolor sit amet consectetur adipisicing elit.
+                            Facere iusto doloribus velit fuga ad nulla,
+                            consequatur voluptates quam, cupiditate odio totam
+                            est quos ea optio excepturi officiis praesentium
+                            mollitia nisi.
+                        </p>
+                    </motion.div>
+                    <div className="mt-5 w-full lg:rounded-[0.75rem] grid grid-cols-auto-fit gap-5">
                         {data.map((items, i) => (
-                            <div
+                            <motion.div
+                                initial={{
+                                    y: 40,
+                                    opacity: 0,
+                                }}
+                                whileInView={{
+                                    y: 0,
+                                    opacity: 1,
+                                }}
+                                viewport={{
+                                    once: true,
+                                }}
+                                transition={{ duration: 0.3 }}
                                 key={i}
-                                className="w-full h-[20rem] rounded-lg bg-zinc-100 bg-gradient-to-b fr border-1 border-zinc-800/[0.3] to-transparent from-[#0095b2]/[0.1]"
+                                className="p-4 w-full rounded-lg bg-zinc-100 bg-gradient-to-b fr border-1 border-zinc-800/[0.3] to-transparent from-[#0095b2]/[0.1] hover:-translate-y-3 transition-transform"
                             >
-                                <h1 className="font-semibold bg-gradient-to-br from-[#0095b2] to-zinc-800 text-transparent inline-block bg-clip-text tracking-tight text-lg md:text-xl lg:text-2xl">
+                                {items.icon}
+                                <h1 className="mt-4 font-semibold bg-gradient-to-br from-[#0095b2] to-zinc-800 text-transparent inline-block bg-clip-text tracking-tight text-xl md:text-2xl lg:text-3xl">
                                     {items.title}
                                 </h1>
-                            </div>
+                                <p className="mt-3 text-xs md:text-sm lg:text-base text-zinc-800 font-medium">
+                                    Lorem ipsum dolor sit, amet consectetur
+                                    adipisicing elit. Magni itaque ullam
+                                    corrupti facere sunt illo ut error odio
+                                    possimus, autem quia consectetur mollitia
+                                    placeat eum ab. Odit est animi ullam.
+                                </p>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
