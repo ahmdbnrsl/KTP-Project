@@ -15,7 +15,7 @@ import Autoplay from 'embla-carousel-autoplay';
 
 export default function HomePage() {
     return (
-        <main className="w-full min-h-screen bg-zinc-100">
+        <main className="w-full min-h-screen bg-zinc-100 bg-ornament flex flex-col items-center justify-center">
             <motion.div
                 initial={{
                     y: -50,
@@ -47,7 +47,7 @@ export default function HomePage() {
                     />
                 </nav>
             </motion.div>
-            <section className="w-full min-h-screen bg-zinc-100 bg-ornament">
+            <section className="w-full min-h-screen lg:px-12">
                 <div
                     className="w-full min-h-screen flex justify-center items-center px-6 py-8 flex-col"
                     style={{
@@ -116,6 +116,11 @@ export default function HomePage() {
                             </Button>
                         </Link>
                     </motion.div>
+                </div>
+            </section>
+            <section className="w-full lg:px-12 py-5 flex justify-center">
+                <div className="max-w-[1024px] w-full pt-1 lg:rounded-2xl bg-gradient-to-r from-[#0095b2] to-[#0095b2]/[0.4] lg:bg-gradient-to-br lg:p-1 overflow-hidden min-h-screen">
+                    <div className="w-full p-5 lg:rounded-[0.75rem] bg-zinc-100 bg-ornament bg-[length:400px] min-h-screen"></div>
                 </div>
             </section>
         </main>
