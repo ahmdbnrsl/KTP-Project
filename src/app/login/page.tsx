@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { FaUserLock } from 'react-icons/fa';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { signIn } from 'next-auth/react';
 import {
     Select,
     SelectContent,
@@ -29,17 +30,17 @@ export default function LoginPage() {
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/,
             'Password tidak valid (password harus memiliki setidaknya 8 karakter berisi huruf kecil, huruf besar, angka, dan simbol)'
         );
-    const nisOrNimSchema = z.string().min(1, 'NIM/NIS tidak boleh kosong');
+    const nomorIndukSchema = z.number().min(1, 'NIM/NIS tidak boleh kosong');
     const roleSchema = z.string().min(1, 'Status tidak boleh kosong');
     const loginSchema = z.object({
-        nimOrNis: nisOrNimSchema,
+        nomor_induk: nomorIndukSchema,
         password: passSchema,
         role: roleSchema,
     });
     const HandleNimChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let nimnis: string = e.target.value;
         try {
-            nisOrNimSchema.parse(nimnis);
+            nomorIndukSchema.parse(nimnis);
             setNimMessage('');
         } catch (err) {
             if (err instanceof z.ZodError) {
@@ -68,7 +69,7 @@ export default function LoginPage() {
             }
         }
     };
-    const HandleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    const HandleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         interface Login extends EventTarget {
             nim: HTMLInputElement;
@@ -79,9 +80,13 @@ export default function LoginPage() {
 
         try {
             let validate = loginSchema.parse({
-                nimOrNis: el.nim.value,
+                nomor_induk: el.nim.value,
                 password: el.password.value,
                 role: el.role.value,
+            });
+            await signIn('credentials', {
+                ...validate,
+                callbackUrl: '/dashboard',
             });
             alert(JSON.stringify(validate));
         } catch (error) {
