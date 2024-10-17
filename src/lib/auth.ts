@@ -16,7 +16,7 @@ declare module 'next-auth' {
 
 export const authOptions: NextAuthOptions = {
     session: {
-        strategy: 'jwt',
+        strategy: 'jwt'
     },
     secret: process.env.SECRET_TOKEN,
     providers: [
@@ -26,18 +26,19 @@ export const authOptions: NextAuthOptions = {
             credentials: {
                 nomor_induk: {
                     label: 'nomor_induk',
-                    type: 'number',
+                    type: 'number'
                 },
                 password: {
                     label: 'password',
-                    type: 'password',
+                    type: 'password'
                 },
                 role: {
                     label: 'role',
-                    type: 'text',
-                },
+                    type: 'text'
+                }
             },
             async authorize(credentials) {
+                console.log('credentials received');
                 const { nomor_induk, password, role } = credentials as {
                     nomor_induk: string;
                     password: string;
@@ -51,18 +52,19 @@ export const authOptions: NextAuthOptions = {
                 if (user) {
                     return user as NextAuthUser;
                 } else {
+                    console.error('invalid login credentials');
                     return null;
                 }
-            },
-        }),
+            }
+        })
     ],
     callbacks: {
         async jwt({ token, account, profile, user, trigger, session }: any) {
             if (account?.provider === 'credentials') {
-                token.full_name = user.full_name;
-                token.nomor_induk = user.nomor_induk;
-                token.user_id = user.user_id;
-                token.role = user.role;
+                token.full_name = user.full_name || '';
+                token.nomor_induk = user.nomor_induk || null;
+                token.user_id = user.user_id || '';
+                token.role = user.role || '';
             }
 
             return token;
@@ -83,9 +85,9 @@ export const authOptions: NextAuthOptions = {
             }
 
             return session;
-        },
+        }
     },
     pages: {
-        signIn: '/login',
-    },
+        signIn: '/login'
+    }
 };
