@@ -316,13 +316,13 @@ export default function LoginPage({ searchParams }: any) {
                             <SelectContent>
                                 <SelectGroup>
                                     <SelectLabel>Status</SelectLabel>
-                                    <SelectItem value="Mahasiswa KTP">
+                                    <SelectItem value="mahasiswa">
                                         Mahasiswa KTP
                                     </SelectItem>
-                                    <SelectItem value="Siswa STP">
+                                    <SelectItem value="siswa">
                                         Siswa STP
                                     </SelectItem>
-                                    <SelectItem value="Admin / Pengurus">
+                                    <SelectItem value="admin">
                                         Admin / Pengurus
                                     </SelectItem>
                                 </SelectGroup>
