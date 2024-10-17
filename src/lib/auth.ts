@@ -1,17 +1,13 @@
 import { NextAuthOptions, User as NextAuthUser } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { usersModel } from '@/models/users';
+import { compare } from '@/controller/index';
 import type { User } from '@/types';
-import mongoose from 'mongoose';
-import CryptoJS from 'crypto-js';
-
-const MONGODB_URI = process.env.MONGODB_URI || '';
 
 declare module 'next-auth' {
     interface Session {
         user: {
             full_name?: string | null;
-            nomor_induk?: string | null;
+            nomor_induk?: number | null;
             user_id?: string | null;
             role?: string | null;
         };
@@ -30,7 +26,7 @@ export const authOptions: NextAuthOptions = {
             credentials: {
                 nomor_induk: {
                     label: 'nomor_induk',
-                    type: 'text',
+                    type: 'number',
                 },
                 password: {
                     label: 'password',
@@ -42,30 +38,20 @@ export const authOptions: NextAuthOptions = {
                 },
             },
             async authorize(credentials) {
-                try {
-                    await mongoose.connect(MONGODB_URI);
-                    const { nomor_induk, password, role } = credentials as {
-                        nomor_induk: string;
-                        password: string;
-                        role: string;
-                    };
-                    const user: User | null = await usersModel.findOne({
-                        nomor_induk,
-                    });
+                const { nomor_induk, password, role } = credentials as {
+                    nomor_induk: string;
+                    password: string;
+                    role: string;
+                };
+                const user: User | false = await compare(
+                    Number(nomor_induk),
+                    password
+                );
 
-                    if (
-                        user &&
-                        CryptoJS.AES.decrypt(
-                            user.password,
-                            process.env.BEARER_TOKEN || ''
-                        ).toString(CryptoJS.enc.Utf8) === password
-                    ) {
-                        return user as NextAuthUser;
-                    } else {
-                        return null;
-                    }
-                } finally {
-                    await mongoose.connection.close();
+                if (user) {
+                    return user as NextAuthUser;
+                } else {
+                    return null;
                 }
             },
         }),

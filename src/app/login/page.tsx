@@ -18,11 +18,13 @@ import {
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import * as React from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+export default function LoginPage({ searchParams }: any) {
     const [passMessage, setPassMessage] = React.useState<string>('');
     const [nimMessage, setNimMessage] = React.useState<string>('');
     const [roleMessage, setRoleMessage] = React.useState<string>('');
+    const [errMessage, setErrMessage] = React.useState<string>('');
     const passSchema = z
         .string()
         .min(8, 'Password tidak boleh kurang dari 8 karakter')
@@ -38,7 +40,7 @@ export default function LoginPage() {
         role: roleSchema,
     });
     const HandleNimChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let nimnis: string = e.target.value;
+        let nimnis: number = Number(e.target.value);
         try {
             nomorIndukSchema.parse(nimnis);
             setNimMessage('');
@@ -80,19 +82,24 @@ export default function LoginPage() {
 
         try {
             let validate = loginSchema.parse({
-                nomor_induk: el.nim.value,
+                nomor_induk: Number(el.nim.value),
                 password: el.password.value,
                 role: el.role.value,
             });
-            await signIn('credentials', {
+            const login = await signIn('credentials', {
                 ...validate,
                 callbackUrl: '/dashboard',
             });
-            alert(JSON.stringify(validate));
+            const { push } = useRouter();
+            if (!login?.error) {
+                push('/dashboard');
+            } else if (login.status === 401) {
+                throw new Error('NIM/NIS atau password salah!');
+            }
         } catch (error) {
             if (error instanceof z.ZodError) {
                 const isErr = JSON.parse(error.message)[0];
-                if (isErr.path[0] === 'nimOrNis') {
+                if (isErr.path[0] === 'nomor_induk') {
                     el.nim.focus();
                     setNimMessage(isErr.message);
                 } else if (isErr.path[0] === 'password') {
@@ -101,6 +108,8 @@ export default function LoginPage() {
                 } else {
                     setRoleMessage(isErr.message);
                 }
+            } else {
+                setErrMessage((error as Error).message);
             }
         }
     };
@@ -150,10 +159,16 @@ export default function LoginPage() {
                     />
                 </motion.div>
                 <hr className="lg:hidden"></hr>
+
                 <form
                     onSubmit={HandleLogin}
                     className="mt-3 mb-5 lg:w-1/3 flex flex-col p-5"
                 >
+                    {errMessage && (
+                        <p className="text-red-500 text-sm font-medium">
+                            {errMessage}
+                        </p>
+                    )}
                     <motion.p
                         initial={{
                             scale: 0,

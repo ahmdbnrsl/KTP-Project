@@ -37,7 +37,7 @@ export default function withAuth(
             }
         }
 
-        if (pathName === '/api') {
+        if (pathName === '/api/secret') {
             const authHeader = req.headers.get('Authorization');
 
             if (!authHeader || !authHeader.startsWith('Bearer ')) {
