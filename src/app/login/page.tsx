@@ -25,6 +25,8 @@ export default function LoginPage({ searchParams }: any) {
     const [nimMessage, setNimMessage] = React.useState<string>('');
     const [roleMessage, setRoleMessage] = React.useState<string>('');
     const [errMessage, setErrMessage] = React.useState<string>('');
+    const { push } = useRouter();
+
     const passSchema = z
         .string()
         .min(8, 'Password tidak boleh kurang dari 8 karakter')
@@ -39,6 +41,7 @@ export default function LoginPage({ searchParams }: any) {
         password: passSchema,
         role: roleSchema
     });
+
     const HandleNimChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let nimnis: number = Number(e.target.value);
         try {
@@ -71,6 +74,7 @@ export default function LoginPage({ searchParams }: any) {
             }
         }
     };
+
     const HandleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         interface Login extends EventTarget {
@@ -86,17 +90,16 @@ export default function LoginPage({ searchParams }: any) {
                 password: el.password.value,
                 role: el.role.value
             });
-            alert(JSON.stringify({ ...validate }));
+
             const login = await signIn('credentials', {
                 ...validate,
                 callbackUrl: '/dashboard'
             });
-            const { push } = useRouter();
+
             if (!login?.error) {
                 push('/dashboard');
-                alert('success login');
             } else if (login.status === 401) {
-                setErrMessage('NIM/NIS atau Password salah.');
+                throw new Error('NIM/NIS atau Password salah.');
             }
         } catch (error) {
             if (error instanceof z.ZodError) {
@@ -111,7 +114,7 @@ export default function LoginPage({ searchParams }: any) {
                     setRoleMessage(isErr.message);
                 }
             } else {
-                setErrMessage('Maaf terjadi kesalahan');
+                setErrMessage((error as Error).message);
             }
         }
     };

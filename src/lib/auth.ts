@@ -9,7 +9,7 @@ declare module 'next-auth' {
             full_name?: string | null;
             nomor_induk?: number | null;
             user_id?: string | null;
-            role?: string | null;
+            role?: 'admin' | 'mahasiswa' | 'siswa' | null;
         };
     }
 }
@@ -42,11 +42,12 @@ export const authOptions: NextAuthOptions = {
                 const { nomor_induk, password, role } = credentials as {
                     nomor_induk: string;
                     password: string;
-                    role: string;
+                    role: 'admin' | 'mahasiswa' | 'siswa';
                 };
                 const user: User | false = await compare(
                     Number(nomor_induk),
-                    password
+                    password,
+                    role
                 );
                 console.log(user);
                 if (user) {
