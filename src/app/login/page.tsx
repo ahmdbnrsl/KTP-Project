@@ -93,7 +93,8 @@ export default function LoginPage({ searchParams }: any) {
             });
             const { push } = useRouter();
             if (!login?.error) {
-                push('/dashboard');
+                //push('/dashboard');
+                alert('success login');
             } else if (login.status === 401) {
                 throw new Error('NIM/NIS atau password salah!');
             }
