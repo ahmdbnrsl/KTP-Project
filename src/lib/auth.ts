@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
                     Number(nomor_induk),
                     password
                 );
-
+                console.log(user);
                 if (user) {
                     return user as NextAuthUser;
                 } else {

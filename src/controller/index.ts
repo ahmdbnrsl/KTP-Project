@@ -13,6 +13,7 @@ export const compare = async (
     try {
         await mongoose.connect(MONGODB_URI);
         const user: User | null = await usersModel.findOne({ nomor_induk });
+        console.log(user);
         if (user) {
             if (
                 CryptoJS.AES.decrypt(
@@ -20,8 +21,10 @@ export const compare = async (
                     process.env.BEARER_TOKEN || ''
                 ).toString(CryptoJS.enc.Utf8) === pass
             ) {
+                console.log('password is valid');
                 return user;
             } else {
+                console.error('password is not valid');
                 return false;
             }
         } else return false;
