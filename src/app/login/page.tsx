@@ -74,7 +74,7 @@ export default function LoginPage({ searchParams }: any) {
     const HandleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         interface Login extends EventTarget {
-            nim: HTMLInputElement;
+            nomor_induk: HTMLInputElement;
             password: HTMLInputElement;
             role: HTMLInputElement;
         }
@@ -82,7 +82,7 @@ export default function LoginPage({ searchParams }: any) {
 
         try {
             let validate = loginSchema.parse({
-                nomor_induk: Number(el.nim.value),
+                nomor_induk: Number(el.nomor_induk.value),
                 password: el.password.value,
                 role: el.role.value
             });
@@ -102,7 +102,7 @@ export default function LoginPage({ searchParams }: any) {
             if (error instanceof z.ZodError) {
                 const isErr = JSON.parse(error.message)[0];
                 if (isErr.path[0] === 'nomor_induk') {
-                    el.nim.focus();
+                    el.nomor_induk.focus();
                     setNimMessage(isErr.message);
                 } else if (isErr.path[0] === 'password') {
                     el.password.focus();
@@ -207,13 +207,13 @@ export default function LoginPage({ searchParams }: any) {
                         <Input
                             onChange={HandleNimChange}
                             type='number'
-                            name='nim'
-                            id='nim'
+                            name='nomor_induk'
+                            id='nomor_induk'
                             className='peer placeholder:text-transparent px-4 py-3 text-zinc-800'
-                            placeholder='nim'
+                            placeholder='nomor_induk'
                         ></Input>
                         <label
-                            htmlFor='nim'
+                            htmlFor='nomor_induk'
                             className='text-xs text-zinc-600 bg-zinc-100 ml-3 px-2 absolute -translate-y-3 peer-placeholder-shown:translate-y-3 font-normal peer-focus:-translate-y-3 w-auto py-1 peer-focus:text-zinc-800 -mt-1'
                         >
                             Masukan NIM/NIS
