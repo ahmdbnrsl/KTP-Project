@@ -110,6 +110,7 @@ export default function LoginPage({ searchParams }: any) {
                 }
             } else {
                 setErrMessage((error as Error).message);
+                alert((error as Error).message);
             }
         }
     };
