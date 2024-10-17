@@ -96,7 +96,7 @@ export default function LoginPage({ searchParams }: any) {
                 push('/dashboard');
                 alert('success login');
             } else if (login.status === 401) {
-                throw new Error('NIM/NIS atau password salah!');
+                setErrMessage('NIM/NIS atau Password salah.');
             }
         } catch (error) {
             if (error instanceof z.ZodError) {
@@ -111,8 +111,7 @@ export default function LoginPage({ searchParams }: any) {
                     setRoleMessage(isErr.message);
                 }
             } else {
-                setErrMessage((error as Error).message);
-                alert((error as Error).message);
+                setErrMessage('Maaf terjadi kesalahan');
             }
         }
     };
@@ -168,7 +167,7 @@ export default function LoginPage({ searchParams }: any) {
                     className='mt-3 mb-5 lg:w-1/3 flex flex-col p-5'
                 >
                     {errMessage && (
-                        <p className='text-red-500 text-sm font-medium'>
+                        <p className='text-red-500 text-sm font-medium mb-4'>
                             {errMessage}
                         </p>
                     )}
