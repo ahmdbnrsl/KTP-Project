@@ -53,8 +53,7 @@ export const authOptions: NextAuthOptions = {
                 if (user) {
                     return user as NextAuthUser;
                 } else {
-                    console.error('invalid login credentials');
-                    throw new Error('NIM/NIS atau Password salah.');
+                    return null;
                 }
             }
         })

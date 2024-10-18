@@ -98,12 +98,12 @@ export default function LoginPage({ searchParams }: any) {
                 callbackUrl: callbackUrl
             });
 
-            if (!login?.error) {
-                push('/dashboard');
-            } else {
+            if (login?.error) {
                 if (login.status === 401) {
                     throw new Error('NIM/NIS atau Password salah.');
                 }
+            } else {
+                push('/dashboard');
             }
         } catch (error) {
             if (error instanceof z.ZodError) {
