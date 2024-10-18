@@ -96,7 +96,7 @@ export default function LoginPage({ searchParams }: any) {
             const login = await signIn('credentials', {
                 ...validate,
                 callbackUrl
-            });
+            }).then(() => push('/dashboard'));
 
             if (login?.error) {
                 if (login.status === 401) {
@@ -104,8 +104,6 @@ export default function LoginPage({ searchParams }: any) {
                 } else {
                     throw new Error('Maaf terjadi kesalahan.');
                 }
-            } else {
-                push('/dashboard');
             }
         } catch (error) {
             if (error instanceof z.ZodError) {
