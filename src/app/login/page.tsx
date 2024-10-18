@@ -201,7 +201,7 @@ export default function LoginPage({ searchParams }: any) {
                                     : 'text-[#0095b2]'
                             } text-sm font-medium mb-4`}
                         >
-                            {errMessage.nimMessage}
+                            {errMessage.message}
                         </p>
                     )}
                     <motion.p
