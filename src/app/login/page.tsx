@@ -19,6 +19,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
+import Loading from '@/components/loading';
 
 export default function LoginPage({ searchParams }: any) {
     const [passMessage, setPassMessage] = React.useState<string>('');
@@ -103,24 +104,24 @@ export default function LoginPage({ searchParams }: any) {
 
             setLoad(true);
             const login = await signIn('credentials', {
+                redirect: false,
                 ...validate,
-                callbackUrl,
             });
 
-            if (!login) {
-                setLoad(false);
-                throw new Error('NIM/NIS atau Password salah.');
-            } else {
-                if (login.status === 401) {
-                    setLoad(false);
-                    throw new Error('NIM/NIS atau Password salah.');
-                } else {
+            if (login) {
+                if (login.ok) {
                     setErrMessage({
                         status: false,
                         message: 'Login berhasil.',
                     });
                     setLoad(false);
                     push(callbackUrl);
+                } else {
+                    setLoad(false);
+                    setErrMessage({
+                        status: true,
+                        message: 'NIM/NIS atau Password salah.',
+                    });
                 }
             }
         } catch (error) {
@@ -200,7 +201,7 @@ export default function LoginPage({ searchParams }: any) {
                                 errMessage.status
                                     ? 'text-red-500'
                                     : 'text-[#0095b2]'
-                            } text-sm font-medium mb-4`}
+                            } text-sm font-semibold mt-2 mb-4 px-3`}
                         >
                             {errMessage.message}
                         </p>
@@ -386,6 +387,7 @@ export default function LoginPage({ searchParams }: any) {
                     >
                         <Button
                             type="submit"
+                            disabled={load}
                             className="w-full flex justify-center items-center gap-2 bg-[#0095b2] hover:bg-[#0095b2]/[0.8]"
                         >
                             {!load ? (
@@ -393,7 +395,9 @@ export default function LoginPage({ searchParams }: any) {
                                     <FaUserLock /> Masuk
                                 </>
                             ) : (
-                                'Masuk...'
+                                <>
+                                    <Loading /> Masuk ...
+                                </>
                             )}
                         </Button>
                     </motion.div>
