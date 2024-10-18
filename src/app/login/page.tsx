@@ -24,7 +24,14 @@ export default function LoginPage({ searchParams }: any) {
     const [passMessage, setPassMessage] = React.useState<string>('');
     const [nimMessage, setNimMessage] = React.useState<string>('');
     const [roleMessage, setRoleMessage] = React.useState<string>('');
-    const [errMessage, setErrMessage] = React.useState<string>('');
+    const [load, setLoad] = React.useState<boolean>(false);
+    const [errMessage, setErrMessage] = React.useState<{
+        status: boolean;
+        message: string;
+    }>({
+        status: false,
+        message: ''
+    });
     const { push } = useRouter();
 
     const callbackUrl = searchParams.callbackUrl || '/dashboard';
@@ -79,6 +86,7 @@ export default function LoginPage({ searchParams }: any) {
 
     const HandleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         interface Login extends EventTarget {
             nomor_induk: HTMLInputElement;
             password: HTMLInputElement;
@@ -93,17 +101,26 @@ export default function LoginPage({ searchParams }: any) {
                 role: el.role.value
             });
 
+            setLoad(true);
             const login = await signIn('credentials', {
                 ...validate,
                 callbackUrl
-            }).then(() => push('/dashboard'));
+            });
 
             if (login?.error) {
+                setLoad(false);
                 if (login.status === 401) {
                     throw new Error('NIM/NIS atau Password salah.');
                 } else {
                     throw new Error('Maaf terjadi kesalahan.');
                 }
+            } else {
+                setErrMessage({
+                    status: false,
+                    message: 'Login berhasil.'
+                });
+                setLoad(false);
+                push(callbackUrl);
             }
         } catch (error) {
             if (error instanceof z.ZodError) {
@@ -118,7 +135,10 @@ export default function LoginPage({ searchParams }: any) {
                     setRoleMessage(isErr.message);
                 }
             } else {
-                setErrMessage((error as Error).message);
+                setErrMessage({
+                    status: true,
+                    message: (error as Error).message
+                });
             }
         }
     };
@@ -173,9 +193,15 @@ export default function LoginPage({ searchParams }: any) {
                     onSubmit={HandleLogin}
                     className='mt-3 mb-5 lg:w-1/3 flex flex-col p-5'
                 >
-                    {errMessage && (
-                        <p className='text-red-500 text-sm font-medium mb-4'>
-                            {errMessage}
+                    {errMessage.message && (
+                        <p
+                            className={`${
+                                errMessage.status
+                                    ? 'text-red-500'
+                                    : 'text-[#0095b2]'
+                            } text-sm font-medium mb-4`}
+                        >
+                            {errMessage.nimMessage}
                         </p>
                     )}
                     <motion.p
@@ -370,7 +396,13 @@ export default function LoginPage({ searchParams }: any) {
                             type='submit'
                             className='w-full flex justify-center items-center gap-2 bg-[#0095b2] hover:bg-[#0095b2]/[0.8]'
                         >
-                            <FaUserLock /> Masuk
+                            {!load ? (
+                                <>
+                                    <FaUserLock /> Masuk
+                                </>
+                            ) : (
+                                'Masuk...'
+                            )}
                         </Button>
                     </motion.div>
                     <motion.p
