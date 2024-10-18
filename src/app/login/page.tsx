@@ -27,6 +27,8 @@ export default function LoginPage({ searchParams }: any) {
     const [errMessage, setErrMessage] = React.useState<string>('');
     const { push } = useRouter();
 
+    const callbackUrl = searchParams.callbackUrl || '/dashboard';
+
     const passSchema = z
         .string()
         .min(8, 'Password tidak boleh kurang dari 8 karakter')
@@ -93,13 +95,15 @@ export default function LoginPage({ searchParams }: any) {
 
             const login = await signIn('credentials', {
                 ...validate,
-                callbackUrl: '/dashboard'
+                callbackUrl: callbackUrl
             });
 
             if (!login?.error) {
                 push('/dashboard');
-            } else if (login.status === 401) {
-                throw new Error('NIM/NIS atau Password salah.');
+            } else {
+                if (login.status === 401) {
+                    throw new Error('NIM/NIS atau Password salah.');
+                }
             }
         } catch (error) {
             if (error instanceof z.ZodError) {
