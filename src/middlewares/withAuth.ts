@@ -37,20 +37,20 @@ export default function withAuth(
             }
         }
 
-        if (pathName === '/api/secret') {
-            const authHeader = req.headers.get('Authorization');
+        // if (pathName === '/api/secret') {
+        //     const authHeader = req.headers.get('Authorization');
 
-            if (!authHeader || !authHeader.startsWith('Bearer ')) {
-                return new NextResponse('Unauthorized', { status: 401 });
-            }
+        //     if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        //         return new NextResponse('Unauthorized', { status: 401 });
+        //     }
 
-            const token = authHeader.split(' ')[1];
-            const isValidToken = token === process.env.BEARER_TOKEN;
+        //     const token = authHeader.split(' ')[1];
+        //     const isValidToken = token === process.env.BEARER_TOKEN;
 
-            if (!isValidToken) {
-                return new NextResponse('Unauthorized', { status: 401 });
-            }
-        }
+        //     if (!isValidToken) {
+        //         return new NextResponse('Unauthorized', { status: 401 });
+        //     }
+        // }
         return middleware(req, next);
     };
 }
