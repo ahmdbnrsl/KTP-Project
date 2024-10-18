@@ -95,12 +95,14 @@ export default function LoginPage({ searchParams }: any) {
 
             const login = await signIn('credentials', {
                 ...validate,
-                callbackUrl: callbackUrl
+                callbackUrl
             });
 
             if (login?.error) {
                 if (login.status === 401) {
                     throw new Error('NIM/NIS atau Password salah.');
+                } else {
+                    throw new Error('Maaf terjadi kesalahan.');
                 }
             } else {
                 push('/dashboard');
