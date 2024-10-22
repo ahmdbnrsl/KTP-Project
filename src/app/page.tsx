@@ -4,9 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { FaHistory } from 'react-icons/fa';
+import { FaHistory, FaRegEnvelope, FaRegUser } from 'react-icons/fa';
 import { LuLampCeiling } from 'react-icons/lu';
-import { IoExtensionPuzzleOutline } from 'react-icons/io5';
+import { IoExtensionPuzzleOutline, IoHomeOutline } from 'react-icons/io5';
+import { CiFacebook, CiInstagram, CiImageOn } from 'react-icons/ci';
+import HiddenToVisible from '@/components/framer/hiddenToVisible';
 
 import {
     Carousel,
@@ -31,46 +33,79 @@ export default function HomePage() {
         },
     ];
     return (
-        <main className="w-full min-h-screen bg-zinc-100 bg-ornament flex flex-col items-center justify-center">
-            <motion.div
-                initial={{
-                    y: -50,
-                    opacity: 0,
-                }}
-                animate={{
-                    y: 0,
-                    opacity: 1,
-                }}
-                transition={{
-                    duration: 1.5,
-                }}
-                className="fixed top-0 w-full z-[999999]"
-            >
-                <nav
-                    className="w-full px-4 sm:px-6 flex justify-between items-center"
-                    style={{
-                        backgroundImage:
-                            'radial-gradient(60px circle at 80px 40px, rgba(255, 244, 244, 0.3), transparent 80%)',
-                    }}
-                >
-                    <Image
-                        src="/logo/main.png"
-                        width={300}
-                        height={300}
-                        alt="logo"
-                        loading="lazy"
-                        className="w-36"
-                    />
+        <main className="w-full min-h-screen bg-zinc-50 flex flex-col items-center justify-center">
+            <HiddenToVisible IsClassName="w-full sticky top-0 z-[9999] flex px-6 sm:px-8 justify-center pt-2 backdrop-blur pb-3 gap-1.5 flex-col items-center bg-zinc-50/[0.80]">
+                <nav className="w-full px-6 sm:px-8 flex justify-center items-center pt-3">
+                    <div
+                        className="flex justify-between w-full max-w-5xl"
+                        style={{
+                            backgroundImage:
+                                'radial-gradient(60px circle at 80px 40px, rgba(255, 244, 244, 0.3), transparent 80%)',
+                        }}
+                    >
+                        <div className="flex items-center gap-0.5">
+                            <h1 className="text-zinc-500 font-bold text-lg md:text-xl">
+                                SMPP
+                            </h1>
+                        </div>
+                        <ul className="flex gap-2 items-center text-base md:text-lg text-zinc-600">
+                            <li>
+                                <Link
+                                    href="/"
+                                    className="flex items-center gap-1 cursor-pointer"
+                                >
+                                    <FaRegEnvelope className="text-[#0095b2]" />
+                                    <p className="text-xs md:text-sm font-medium">
+                                        cikarag@gmail.com
+                                    </p>
+                                </Link>
+                            </li>
+                            <li className="px-2 font-bold text-zinc-400">|</li>
+                            <li>
+                                <Link
+                                    href="/"
+                                    className="text-[#0095b2] cursor-pointer"
+                                >
+                                    <CiFacebook />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/"
+                                    className="text-[#0095b2] cursor-pointer"
+                                >
+                                    <CiInstagram />
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
-            </motion.div>
+                <nav className="w-full max-w-5xl flex justify-center md:justify-end gap-6 flex-wrap">
+                    <Link
+                        href="/"
+                        className="group text-sm font-medium text-zinc-500 px-5 py-1 rounded-lg hover:bg-[#0095b2] hover:text-zinc-50 bg-zinc-50 border border-zinc-300/[0.80] shadow-lg shadow-zinc-300 flex gap-2 items-center cursor-pointer"
+                    >
+                        <IoHomeOutline className="text-[#0095b2] group-hover:text-zinc-50" />{' '}
+                        Beranda
+                    </Link>
+                    <Link
+                        href="/login"
+                        className="group text-sm font-medium text-zinc-500 px-5 py-1 rounded-lg hover:bg-[#0095b2] hover:text-zinc-50 bg-zinc-50 border border-zinc-300/[0.80] shadow-lg shadow-zinc-300 flex gap-2 items-center cursor-pointer"
+                    >
+                        <FaRegUser className="text-[#0095b2] group-hover:text-zinc-50" />{' '}
+                        Masuk
+                    </Link>
+                    <Link
+                        href="/login"
+                        className="group text-sm font-medium text-zinc-500 px-5 py-1 rounded-lg hover:bg-[#0095b2] hover:text-zinc-50 bg-zinc-50 border border-zinc-300/[0.80] shadow-lg shadow-zinc-300 flex gap-2 items-center cursor-pointer"
+                    >
+                        <CiImageOn className="text-[#0095b2] group-hover:text-zinc-50" />{' '}
+                        Galeri
+                    </Link>
+                </nav>
+            </HiddenToVisible>
             <section className="w-full min-h-screen lg:px-12">
-                <div
-                    className="w-full min-h-screen flex justify-center items-center px-6 py-8 flex-col"
-                    style={{
-                        backgroundImage:
-                            'radial-gradient(600px circle at 50% 50%, rgba(0, 149, 178, 0.1), transparent 80%), radial-gradient(200px circle at 20% 70%, rgba(0, 149, 178, 0.1), transparent 80%), radial-gradient(600px circle at 70% 20%, rgba(0, 149, 178, 0.1), transparent 80%)',
-                    }}
-                >
+                <div className="w-full min-h-screen flex justify-center items-center px-6 py-8 flex-col">
                     <motion.h1
                         initial={{
                             y: -30,
