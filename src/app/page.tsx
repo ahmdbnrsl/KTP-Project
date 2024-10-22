@@ -9,6 +9,8 @@ import { LuLampCeiling } from 'react-icons/lu';
 import { IoExtensionPuzzleOutline, IoHomeOutline } from 'react-icons/io5';
 import { CiFacebook, CiInstagram, CiImageOn } from 'react-icons/ci';
 import HiddenToVisible from '@/components/framer/hiddenToVisible';
+import { usePathname } from 'next/navigation';
+import { MdOutlineSpaceDashboard } from 'react-icons/md';
 
 import {
     Carousel,
@@ -18,6 +20,8 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import R, { ReactElement } from 'react';
+import type { Navigation } from '@/types';
 
 export default function HomePage() {
     const data = [
@@ -32,10 +36,42 @@ export default function HomePage() {
             title: 'Misi',
         },
     ];
+    const navigationLink: Navigation[] = [
+        {
+            title: 'Beranda',
+            href: '/',
+            icon: ({ isClass }: { isClass: string }) => (
+                <IoHomeOutline className={isClass} />
+            ),
+        },
+        {
+            title: 'Masuk',
+            href: '/login',
+            icon: ({ isClass }: { isClass: string }) => (
+                <FaRegUser className={isClass} />
+            ),
+        },
+        {
+            title: 'Galeri',
+            href: '/galeri',
+            icon: ({ isClass }: { isClass: string }) => (
+                <CiImageOn className={isClass} />
+            ),
+        },
+        {
+            title: 'Dashboard',
+            href: '/dashboard',
+            icon: ({ isClass }: { isClass: string }) => (
+                <MdOutlineSpaceDashboard className={isClass} />
+            ),
+        },
+    ];
+    const pathName = usePathname();
+
     return (
         <main className="w-full min-h-screen bg-zinc-50 flex flex-col items-center justify-center">
             <HiddenToVisible IsClassName="w-full sticky top-0 z-[9999] flex px-6 sm:px-8 justify-center pt-2 backdrop-blur pb-3 gap-1.5 flex-col items-center bg-zinc-50/[0.80]">
-                <nav className="w-full px-6 sm:px-8 flex justify-center items-center pt-3">
+                <nav className="w-full flex justify-center items-center pt-3">
                     <div
                         className="flex justify-between w-full max-w-5xl"
                         style={{
@@ -80,28 +116,29 @@ export default function HomePage() {
                         </ul>
                     </div>
                 </nav>
-                <nav className="w-full max-w-5xl flex justify-center md:justify-end gap-6 flex-wrap">
-                    <Link
-                        href="/"
-                        className="group text-sm font-medium text-zinc-500 px-5 py-1 rounded-lg hover:bg-[#0095b2] hover:text-zinc-50 bg-zinc-50 border border-zinc-300/[0.80] shadow-lg shadow-zinc-300 flex gap-2 items-center cursor-pointer"
-                    >
-                        <IoHomeOutline className="text-[#0095b2] group-hover:text-zinc-50" />{' '}
-                        Beranda
-                    </Link>
-                    <Link
-                        href="/login"
-                        className="group text-sm font-medium text-zinc-500 px-5 py-1 rounded-lg hover:bg-[#0095b2] hover:text-zinc-50 bg-zinc-50 border border-zinc-300/[0.80] shadow-lg shadow-zinc-300 flex gap-2 items-center cursor-pointer"
-                    >
-                        <FaRegUser className="text-[#0095b2] group-hover:text-zinc-50" />{' '}
-                        Masuk
-                    </Link>
-                    <Link
-                        href="/login"
-                        className="group text-sm font-medium text-zinc-500 px-5 py-1 rounded-lg hover:bg-[#0095b2] hover:text-zinc-50 bg-zinc-50 border border-zinc-300/[0.80] shadow-lg shadow-zinc-300 flex gap-2 items-center cursor-pointer"
-                    >
-                        <CiImageOn className="text-[#0095b2] group-hover:text-zinc-50" />{' '}
-                        Galeri
-                    </Link>
+                <nav className="w-full max-w-5xl flex justify-center md:justify-end gap-2 md:gap-4 lg:gap-6 flex-wrap mt-2">
+                    {navigationLink.map((navigation: Navigation, i: number) => {
+                        return (
+                            <Link
+                                key={i}
+                                href={navigation.href}
+                                className={`group text-sm font-semibold px-5 py-1 rounded-lg hover:bg-[#0095b2] hover:text-zinc-50 border border-zinc-300/[0.80] shadow-md shadow-zinc-200 flex gap-2 items-center cursor-pointer ${
+                                    pathName.startsWith(navigation.href)
+                                        ? 'bg-[#0095b2] text-zinc-50'
+                                        : 'text-zinc-500 bg-zinc-50'
+                                }`}
+                            >
+                                <navigation.icon
+                                    isClass={`${
+                                        pathName.startsWith(navigation.href)
+                                            ? 'text-zinc-50'
+                                            : 'text-[#0095b2] group-hover:text-zinc-50'
+                                    }`}
+                                />{' '}
+                                {navigation.title}
+                            </Link>
+                        );
+                    })}
                 </nav>
             </HiddenToVisible>
             <section className="w-full min-h-screen lg:px-12">
