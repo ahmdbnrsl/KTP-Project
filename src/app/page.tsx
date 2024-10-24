@@ -2,9 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaRegUser } from 'react-icons/fa';
+import { CiImageOn } from 'react-icons/ci';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { FaHistory } from 'react-icons/fa';
 import { LuLampCeiling } from 'react-icons/lu';
 import { IoExtensionPuzzleOutline } from 'react-icons/io5';
 import {
@@ -36,15 +37,30 @@ export default function HomePage() {
             <Slider></Slider>
             <section className="mt-10 w-full px-6 sm:px-8 flex justify-center items-center">
                 <div className="w-full max-w-5xl flex flex-col sm:items-center">
-                    <h1 className="text-center tracking-tighter text-2xl md:text-3xl lg:text-5xl font-bold bg-gradient-to-br from-[#0095b2] to-zinc-800 text-transparent inline-block bg-clip-text">
+                    <h1 className="sm:text-center tracking-tighter text-2xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-br from-[#0095b2] to-zinc-800 text-transparent inline-block bg-clip-text max-w-[19ch]">
                         Sistem Manajemen Pertanian dan Pesantren
                     </h1>
-                    <p className="text-sm text-zinc-800 mt-6 sm:text-base font-semibold tracking-wide">
-                        Lorem ipsum dolor sit
+                    <p className="text-xs text-zinc-800 mt-3 sm:text-sm font-semibold text-center max-w-[30ch]">
+                        ~ Jika tanaman disiram air maka kita disiram dengan ilmu
+                        ~
                     </p>
+                    <div className="mt-5 flex sm:justify-center gap-3 flex-wrap">
+                        <Link
+                            href="/galeri"
+                            className="px-5 py-1 text-sm sm:text-base text-zinc-50 bg-zinc-800 rounded-md hover:bg-zinc-600 transition-colors flex items-center gap-1 sm:gap-2 cursor-pointer"
+                        >
+                            <CiImageOn /> Galeri
+                        </Link>
+                        <Link
+                            href="/galeri"
+                            className="px-5 py-1 text-sm sm:text-base text-zinc-800 rounded-md transition-colors flex items-center gap-1 sm:gap-2 border-2 border-zinc-800 cursor-pointer"
+                        >
+                            <FaRegUser /> Masuk
+                        </Link>
+                    </div>
                 </div>
             </section>
-            <section className="w-full min-h-screen lg:px-12">
+            {/* <section className="w-full min-h-screen lg:px-12">
                 <div className="w-full min-h-screen flex justify-center items-center px-6 py-8 flex-col">
                     <motion.h1
                         initial={{
@@ -175,7 +191,7 @@ export default function HomePage() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
         </>
     );
 }
